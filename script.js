@@ -15,6 +15,7 @@ function clear() {
     a = "";
     b = "";
     r = "";
+    q = 0;
     numbers = [];
     sign = [];
     text.innerHTML = a;
@@ -114,41 +115,45 @@ function simpartit() {
 }
 
 function segal() {
-
-    numbers.push(parseInt(b));
-    b = "";
-    let s = numbers[0];
-    r += "= "
-    for (let j = 0; j < sign.length; j++) {
-        if (sign[j] === 3) {
-            numbers[j] *= numbers[j + 1];
-            numbers.splice(j + 1, 1);
-            sign.splice(j, 1);
-            console.log(numbers);
-            console.log(sign);
+    q++;
+    if (q === 1) {
+        numbers.push(parseInt(b));
+        b = "";
+        let s = numbers[0];
+        r += "= "
+        for (let j = 0; j < sign.length; j++) {
+            if (sign[j] === 3) {
+                numbers[j] *= numbers[j + 1];
+                numbers.splice(j + 1, 1);
+                sign.splice(j, 1);
+                console.log(numbers);
+                console.log(sign);
+            }
+            if (sign[j] === 4) {
+                numbers[j] /= numbers[j + 1];
+                numbers.splice(j + 1, 1);
+                sign.splice(j, 1);
+            }
         }
-        if (sign[j] === 4) {
-            numbers[j] /= numbers[j + 1];
-            numbers.splice(j + 1, 1);
-            sign.splice(j, 1);
+        for (let j = 0; j < sign.length; j++) {
+            if (sign[j] === 1) {
+                numbers[j] += numbers[j + 1];
+                numbers.splice(j + 1, 1);
+                sign.splice(j, 1);
+                console.log(numbers);
+                console.log(sign);
+            }
+            if (sign[j] === 2) {
+                numbers[j] -= numbers[j + 1];
+                numbers.splice(j + 1, 1);
+                sign.splice(j, 1);
+            }
         }
+        s = numbers[0];
+        r += s.toString();
+        view();
+        raspuns.innerHTML = r;
+    } else {
+        clear();
     }
-    for (let j = 0; j < sign.length; j++) {
-        if (sign[j] === 1) {
-            numbers[j] += numbers[j + 1];
-            numbers.splice(j + 1, 1);
-            sign.splice(j, 1);
-            console.log(numbers);
-            console.log(sign);
-        }
-        if (sign[j] === 2) {
-            numbers[j] -= numbers[j + 1];
-            numbers.splice(j + 1, 1);
-            sign.splice(j, 1);
-        }
-    }
-    s = numbers[0];
-    r += s.toString();
-    view();
-    raspuns.innerHTML = r;
 }
